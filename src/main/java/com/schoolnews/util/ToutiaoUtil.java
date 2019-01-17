@@ -1,15 +1,14 @@
 package com.schoolnews.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.schoolnews.controller.LoginController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
 import java.util.Map;
 
-public class schoolnewsUtil {
-    private static final Logger logger = LoggerFactory.getLogger(schoolnewsUtil.class);
+public class ToutiaoUtil {
+    private static final Logger logger = LoggerFactory.getLogger(ToutiaoUtil.class);
 
     public static String schoolnews_DOMAIN = "http://127.0.0.1:8080/";
     public static String IMAGE_DIR = "D:/upload/";

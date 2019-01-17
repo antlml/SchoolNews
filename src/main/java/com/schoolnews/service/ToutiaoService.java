@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class schoolnewsService {
+public class ToutiaoService {
     public String say() {
         return "This is from schoolnewsService";
     }

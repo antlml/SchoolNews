@@ -8,7 +8,7 @@ import com.schoolnews.model.HostHolder;
 import com.schoolnews.model.News;
 import com.schoolnews.service.LikeService;
 import com.schoolnews.service.NewsService;
-import com.schoolnews.util.schoolnewsUtil;
+import com.schoolnews.util.ToutiaoUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ public class LikeController {
                 .setActorId(hostHolder.getUser().getId()).setEntityId(newsId)
                 .setEntityType(EntityType.ENTITY_NEWS).setEntityOwnerId(news.getUserId()));
 
-        return schoolnewsUtil.getJSONString(0, String.valueOf(likeCount));
+        return ToutiaoUtil.getJSONString(0, String.valueOf(likeCount));
     }
 
     @RequestMapping(path = {"/dislike"}, method = {RequestMethod.GET, RequestMethod.POST})
@@ -52,6 +52,6 @@ public class LikeController {
         long likeCount = likeService.disLike(hostHolder.getUser().getId(), EntityType.ENTITY_NEWS, newsId);
         // 更新喜欢数
         newsService.updateLikeCount(newsId, (int) likeCount);
-        return schoolnewsUtil.getJSONString(0, String.valueOf(likeCount));
+        return ToutiaoUtil.getJSONString(0, String.valueOf(likeCount));
     }
 }

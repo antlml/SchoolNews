@@ -1,14 +1,10 @@
 package com.schoolnews.controller;
 
-import com.schoolnews.async.EventHandler;
 import com.schoolnews.async.EventModel;
 import com.schoolnews.async.EventProducer;
 import com.schoolnews.async.EventType;
-import com.schoolnews.model.News;
-import com.schoolnews.model.ViewObject;
-import com.schoolnews.service.NewsService;
 import com.schoolnews.service.UserService;
-import com.schoolnews.util.schoolnewsUtil;
+import com.schoolnews.util.ToutiaoUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -47,14 +41,14 @@ public class LoginController {
                     cookie.setMaxAge(3600 * 24 * 5);
                 }
                 response.addCookie(cookie);
-                return schoolnewsUtil.getJSONString(0, "注册成功");
+                return ToutiaoUtil.getJSONString(0, "注册成功");
             } else {
-                return schoolnewsUtil.getJSONString(1, map);
+                return ToutiaoUtil.getJSONString(1, map);
             }
 
         } catch (Exception e) {
             logger.error("注册异常" + e.getMessage());
-            return schoolnewsUtil.getJSONString(1, "注册异常");
+            return ToutiaoUtil.getJSONString(1, "注册异常");
         }
     }
 
@@ -76,14 +70,14 @@ public class LoginController {
                 eventProducer.fireEvent(new EventModel(EventType.LOGIN)
                         .setActorId((int) map.get("userId"))
                         .setExt("username", username).setExt("email", "zjuyxy@qq.com"));
-                return schoolnewsUtil.getJSONString(0, "成功");
+                return ToutiaoUtil.getJSONString(0, "成功");
             } else {
-                return schoolnewsUtil.getJSONString(1, map);
+                return ToutiaoUtil.getJSONString(1, map);
             }
 
         } catch (Exception e) {
             logger.error("注册异常" + e.getMessage());
-            return schoolnewsUtil.getJSONString(1, "注册异常");
+            return ToutiaoUtil.getJSONString(1, "注册异常");
         }
     }
 

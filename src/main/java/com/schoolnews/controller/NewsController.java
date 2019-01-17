@@ -2,7 +2,7 @@ package com.schoolnews.controller;
 
 import com.schoolnews.model.*;
 import com.schoolnews.service.*;
-import com.schoolnews.util.schoolnewsUtil;
+import com.schoolnews.util.ToutiaoUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +100,7 @@ public class NewsController {
         try {
             response.setContentType("image/jpeg");
             StreamUtils.copy(new FileInputStream(new
-                    File(schoolnewsUtil.IMAGE_DIR + imageName)), response.getOutputStream());
+                    File(ToutiaoUtil.IMAGE_DIR + imageName)), response.getOutputStream());
         } catch (Exception e) {
             logger.error("读取图片错误" + imageName + e.getMessage());
         }
@@ -113,12 +113,12 @@ public class NewsController {
             String fileUrl = newsService.saveImage(file);
             //String fileUrl = qiniuService.saveImage(file);
             if (fileUrl == null) {
-                return schoolnewsUtil.getJSONString(1, "上传图片失败");
+                return ToutiaoUtil.getJSONString(1, "上传图片失败");
             }
-            return schoolnewsUtil.getJSONString(0, fileUrl);
+            return ToutiaoUtil.getJSONString(0, fileUrl);
         } catch (Exception e) {
             logger.error("上传图片失败" + e.getMessage());
-            return schoolnewsUtil.getJSONString(1, "上传失败");
+            return ToutiaoUtil.getJSONString(1, "上传失败");
         }
     }
 
@@ -140,10 +140,10 @@ public class NewsController {
                 news.setUserId(3);
             }
             newsService.addNews(news);
-            return schoolnewsUtil.getJSONString(0);
+            return ToutiaoUtil.getJSONString(0);
         } catch (Exception e) {
             logger.error("添加资讯失败" + e.getMessage());
-            return schoolnewsUtil.getJSONString(1, "发布失败");
+            return ToutiaoUtil.getJSONString(1, "发布失败");
         }
     }
 }

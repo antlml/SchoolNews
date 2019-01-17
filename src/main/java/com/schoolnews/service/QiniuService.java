@@ -1,7 +1,7 @@
 package com.schoolnews.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.schoolnews.util.schoolnewsUtil;
+import com.schoolnews.util.ToutiaoUtil;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.UploadManager;
@@ -43,7 +43,7 @@ public class QiniuService {
                 return null;
             }
             String fileExt = file.getOriginalFilename().substring(dotPos + 1).toLowerCase();
-            if (!schoolnewsUtil.isFileAllowed(fileExt)) {
+            if (!ToutiaoUtil.isFileAllowed(fileExt)) {
                 return null;
             }
 

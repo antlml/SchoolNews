@@ -4,7 +4,7 @@ import com.schoolnews.dao.LoginTicketDAO;
 import com.schoolnews.dao.UserDAO;
 import com.schoolnews.model.LoginTicket;
 import com.schoolnews.model.User;
-import com.schoolnews.util.schoolnewsUtil;
+import com.schoolnews.util.ToutiaoUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public class UserService {
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
         String head = String.format("http://images.schoolnews.com/head/%dt.png", new Random().nextInt(1000));
         user.setHeadUrl(head);
-        user.setPassword(schoolnewsUtil.MD5(password+user.getSalt()));
+        user.setPassword(ToutiaoUtil.MD5(password+user.getSalt()));
         userDAO.addUser(user);
 
         // 登陆
@@ -76,7 +76,7 @@ public class UserService {
             return map;
         }
 
-        if (!schoolnewsUtil.MD5(password+user.getSalt()).equals(user.getPassword())) {
+        if (!ToutiaoUtil.MD5(password+user.getSalt()).equals(user.getPassword())) {
             map.put("msgpwd", "密码不正确");
             return map;
         }

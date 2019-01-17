@@ -2,11 +2,7 @@ package com.schoolnews.service;
 
 import com.schoolnews.dao.NewsDAO;
 import com.schoolnews.model.News;
-import com.schoolnews.util.schoolnewsUtil;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.apache.velocity.texen.util.FileUtil;
+import com.schoolnews.util.ToutiaoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +16,7 @@ import java.util.UUID;
 
 @Service
 public class NewsService {
+
     @Autowired
     private NewsDAO newsDAO;
 
@@ -42,14 +39,14 @@ public class NewsService {
             return null;
         }
         String fileExt = file.getOriginalFilename().substring(dotPos + 1).toLowerCase();
-        if (!schoolnewsUtil.isFileAllowed(fileExt)) {
+        if (!ToutiaoUtil.isFileAllowed(fileExt)) {
             return null;
         }
 
         String fileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + fileExt;
-        Files.copy(file.getInputStream(), new File(schoolnewsUtil.IMAGE_DIR + fileName).toPath(),
+        Files.copy(file.getInputStream(), new File(ToutiaoUtil.IMAGE_DIR + fileName).toPath(),
                 StandardCopyOption.REPLACE_EXISTING);
-        return schoolnewsUtil.schoolnews_DOMAIN + "image?name=" + fileName;
+        return ToutiaoUtil.schoolnews_DOMAIN + "image?name=" + fileName;
     }
 
     public int updateCommentCount(int id, int count) {

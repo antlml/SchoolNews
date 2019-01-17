@@ -1,10 +1,9 @@
 package com.schoolnews.controller;
 
-import com.schoolnews.dao.MessageDAO;
 import com.schoolnews.model.*;
 import com.schoolnews.service.MessageService;
 import com.schoolnews.service.UserService;
-import com.schoolnews.util.schoolnewsUtil;
+import com.schoolnews.util.ToutiaoUtil;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.util.HtmlUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -94,10 +92,10 @@ public class MessageController {
             msg.setCreatedDate(new Date());
             //msg.setConversationId(fromId < toId ? String.format("%d_%d", fromId, toId) : String.format("%d_%d", toId, fromId));
             messageService.addMessage(msg);
-            return schoolnewsUtil.getJSONString(msg.getId());
+            return ToutiaoUtil.getJSONString(msg.getId());
         } catch (Exception e) {
             logger.error("增加评论失败" + e.getMessage());
-            return schoolnewsUtil.getJSONString(1, "插入评论失败");
+            return ToutiaoUtil.getJSONString(1, "插入评论失败");
         }
     }
 }
