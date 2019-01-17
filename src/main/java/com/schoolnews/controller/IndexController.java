@@ -1,32 +1,38 @@
 package com.schoolnews.controller;
 
+import com.schoolnews.aspect.LogAspect;
 import com.schoolnews.model.User;
 import com.schoolnews.service.ToutiaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.Banner;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.*;
-@Controller
+
+//@Controller
 public class IndexController {
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
-    private ToutiaoService schoolnewsService;
+    private ToutiaoService toutiaoService;
 
     @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String index(HttpSession session) {
         logger.info("Visit Index");
-        return "Hello schoolnews," + session.getAttribute("msg")
-                + "<br> Say:" + schoolnewsService.say();
+        return "Hello NowCoder," + session.getAttribute("msg")
+                + "<br> Say:" + toutiaoService.say();
     }
 
     @RequestMapping(value = {"/profile/{groupId}/{userId}"})
@@ -34,7 +40,7 @@ public class IndexController {
     public String profile(@PathVariable("groupId") String groupId,
                           @PathVariable("userId") int userId,
                           @RequestParam(value = "type", defaultValue = "1") int type,
-                          @RequestParam(value = "key", defaultValue = "schoolnews") String key) {
+                          @RequestParam(value = "key", defaultValue = "nowcoder") String key) {
         return String.format("GID{%s},UID{%d},TYPE{%d},KEY{%s}", groupId, userId, type, key);
     }
 
@@ -86,13 +92,13 @@ public class IndexController {
 
     @RequestMapping(value = {"/response"})
     @ResponseBody
-    public String response(@CookieValue(value = "schoolnewsid", defaultValue = "a") String schoolnewsId,
+    public String response(@CookieValue(value = "nowcoderid", defaultValue = "a") String nowcoderId,
                            @RequestParam(value = "key", defaultValue = "key") String key,
                            @RequestParam(value = "value", defaultValue = "value") String value,
                            HttpServletResponse response) {
         response.addCookie(new Cookie(key, value));
         response.addHeader(key, value);
-        return "schoolnewsId From Cookie:" + schoolnewsId;
+        return "NowCoderId From Cookie:" + nowcoderId;
     }
 
     @RequestMapping("/redirect/{code}")

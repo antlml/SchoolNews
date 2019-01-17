@@ -6,7 +6,7 @@
 	<groupId>com.SchoolNews</groupId>
 	<artifactId>SchoolNews</artifactId>
 	<version>1.0</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>SchoolNews</name>
 	<description>Demo project for Spring Boot</description>
